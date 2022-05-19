@@ -5,7 +5,9 @@ description = ""
 authors = [
     {name = "Eduardo da Silva", email = "eduardo.silva@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "djangorestframework>=3.13.1",
+]
 requires-python = ">=3.10"
 license = {text = "MIT"}
 [project.optional-dependencies]

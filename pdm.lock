@@ -1,4 +1,10 @@
 [[package]]
+name = "asgiref"
+version = "3.5.2"
+requires_python = ">=3.7"
+summary = "ASGI specs, helper code, and adapters"
+
+[[package]]
 name = "astroid"
 version = "2.11.5"
 requires_python = ">=3.6.2"
@@ -63,6 +69,27 @@ name = "dill"
 version = "0.3.4"
 requires_python = ">=2.7, !=3.0.*"
 summary = "serialize all of python"
+
+[[package]]
+name = "django"
+version = "4.0.4"
+requires_python = ">=3.8"
+summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
+dependencies = [
+    "asgiref<4,>=3.4.1",
+    "sqlparse>=0.2.2",
+    "tzdata; sys_platform == \"win32\"",
+]
+
+[[package]]
+name = "djangorestframework"
+version = "3.13.1"
+requires_python = ">=3.6"
+summary = "Web APIs for Django, made easy."
+dependencies = [
+    "django>=2.2",
+    "pytz",
+]
 
 [[package]]
 name = "flake8"
@@ -185,10 +212,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "pytz"
+version = "2022.1"
+summary = "World timezone definitions, modern and historical"
+
+[[package]]
 name = "setuptools"
 version = "62.2.0"
 requires_python = ">=3.7"
 summary = "Easily download, build, install, upgrade, and uninstall Python packages"
+
+[[package]]
+name = "sqlparse"
+version = "0.4.2"
+requires_python = ">=3.5"
+summary = "A non-validating SQL parser."
 
 [[package]]
 name = "toml"
@@ -203,6 +241,12 @@ requires_python = ">=3.7"
 summary = "A lil' TOML parser"
 
 [[package]]
+name = "tzdata"
+version = "2022.1"
+requires_python = ">=2"
+summary = "Provider of IANA time zone data"
+
+[[package]]
 name = "wrapt"
 version = "1.14.1"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
@@ -210,9 +254,13 @@ summary = "Module for decorators, wrappers and monkey patching."
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:28b59dd2b3f6cb61768d1140edcb79d9589b45917fa0629422c7c8b108ee22fc"
+content_hash = "sha256:6088316e1fede23f831e9833b7eb72353cdb0d0183e44a2355eeca311df8076d"
 
 [metadata.files]
+"asgiref 3.5.2" = [
+    {file = "asgiref-3.5.2-py3-none-any.whl", hash = "sha256:1d2880b792ae8757289136f1db2b7b99100ce959b2aa57fd69dab783d05afac4"},
+    {file = "asgiref-3.5.2.tar.gz", hash = "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"},
+]
 "astroid 2.11.5" = [
     {file = "astroid-2.11.5-py3-none-any.whl", hash = "sha256:14ffbb4f6aa2cf474a0834014005487f7ecd8924996083ab411e7fa0b508ce0b"},
     {file = "astroid-2.11.5.tar.gz", hash = "sha256:f4e4ec5294c4b07ac38bab9ca5ddd3914d4bf46f9006eb5c0ae755755061044e"},
@@ -265,6 +313,14 @@ content_hash = "sha256:28b59dd2b3f6cb61768d1140edcb79d9589b45917fa0629422c7c8b10
 "dill 0.3.4" = [
     {file = "dill-0.3.4-py2.py3-none-any.whl", hash = "sha256:7e40e4a70304fd9ceab3535d36e58791d9c4a776b38ec7f7ec9afc8d3dca4d4f"},
     {file = "dill-0.3.4.zip", hash = "sha256:9f9734205146b2b353ab3fec9af0070237b6ddae78452af83d2fca84d739e675"},
+]
+"django 4.0.4" = [
+    {file = "Django-4.0.4-py3-none-any.whl", hash = "sha256:07c8638e7a7f548dc0acaaa7825d84b7bd42b10e8d22268b3d572946f1e9b687"},
+    {file = "Django-4.0.4.tar.gz", hash = "sha256:4e8177858524417563cc0430f29ea249946d831eacb0068a1455686587df40b5"},
+]
+"djangorestframework 3.13.1" = [
+    {file = "djangorestframework-3.13.1-py3-none-any.whl", hash = "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"},
+    {file = "djangorestframework-3.13.1.tar.gz", hash = "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee"},
 ]
 "flake8 4.0.1" = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
@@ -365,9 +421,17 @@ content_hash = "sha256:28b59dd2b3f6cb61768d1140edcb79d9589b45917fa0629422c7c8b10
     {file = "pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c"},
     {file = "pytest-7.1.2.tar.gz", hash = "sha256:a06a0425453864a270bc45e71f783330a7428defb4230fb5e6a731fde06ecd45"},
 ]
+"pytz 2022.1" = [
+    {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
+    {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},
+]
 "setuptools 62.2.0" = [
     {file = "setuptools-62.2.0-py3-none-any.whl", hash = "sha256:5534570b9980fc650d45c62877ff603c7aaaf24893371708736cc016bd221c3c"},
     {file = "setuptools-62.2.0.tar.gz", hash = "sha256:ca6ba73b7fd5f734ae70ece8c4c1f7062b07f3352f6428f6277e27c8f5c64237"},
+]
+"sqlparse 0.4.2" = [
+    {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
+    {file = "sqlparse-0.4.2.tar.gz", hash = "sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae"},
 ]
 "toml 0.10.2" = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
@@ -376,6 +440,10 @@ content_hash = "sha256:28b59dd2b3f6cb61768d1140edcb79d9589b45917fa0629422c7c8b10
 "tomli 2.0.1" = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
+]
+"tzdata 2022.1" = [
+    {file = "tzdata-2022.1-py2.py3-none-any.whl", hash = "sha256:238e70234214138ed7b4e8a0fab0e5e13872edab3be586ab8198c407620e2ab9"},
+    {file = "tzdata-2022.1.tar.gz", hash = "sha256:8b536a8ec63dc0751342b3984193a3118f8fca2afe25752bb9b7fffd398552d3"},
 ]
 "wrapt 1.14.1" = [
     {file = "wrapt-1.14.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:1b376b3f4896e7930f1f772ac4b064ac12598d1c38d04907e696cc4d794b43d3"},
