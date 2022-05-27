@@ -14,7 +14,6 @@
         "-s"
     ],
     "python.formatting.provider": "autopep8",
-    "python.formatting.blackPath": "black",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.linting.flake8Path": "$flake8",
