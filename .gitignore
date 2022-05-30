@@ -1,3 +1,5 @@
 *.pyc
 .docker/zsh/history/
 __pypackages__/
+.coverage
+pytest_cache

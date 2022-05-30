@@ -90,18 +90,18 @@ class SearchParams(Generic[Filter]):
     def _normalize_filter(self):
         self.filter = None if self.filter == '' or self.filter is None else str(self.filter)
 
-    def _convert_to_int(self, value: Any, default: int = 0) -> int:
+    def _convert_to_int(self, value: Any, default: int = 0) -> int:  # pylint: disable=no-self-use
         try:
             return int(value)
         except (ValueError, TypeError):
             return default
 
-    def _get_dataclass_field(self, field_name):
-        return SearchParams.__dataclass_fields__[field_name]
+    def _get_dataclass_field(self, field_name):  # pylint: disable=no-self-use
+        return SearchParams.__dataclass_fields__[field_name]  # pylint: disable=no-member
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
-class SearchResult(Generic[T, Filter]):
+class SearchResult(Generic[T, Filter]):     # pylint: disable=too-many-instance-attributes
     items: List[T] = field(default_factory=lambda: [])
     total: int
     current_page: int
@@ -187,7 +187,7 @@ class InMemorySearchableRepository(
             return sorted(items, key=lambda item: getattr(item, sort), reverse=is_reverse)
         return items
 
-    def _apply_paginate(self, items: List[T], page: int, per_page: int) -> List[T]:
+    def _apply_paginate(self, items: List[T], page: int, per_page: int) -> List[T]:  # pylint: disable=no-self-use
         start = (page - 1) * per_page
         limit = start + per_page
         return items[slice(start, limit)]

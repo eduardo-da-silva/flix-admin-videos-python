@@ -41,7 +41,7 @@ class TestValueObjectUnit(unittest.TestCase):
         self.assertEqual('{"prop1": "value1", "prop2": "value2"}', str(vo2))
 
     def test_if_is_immutable(self):
-        with self.assertRaises(FrozenInstanceError) as assert_error:
+        with self.assertRaises(FrozenInstanceError):
             vo1 = StubOneProp(prop="value")
             vo1.prop = "NewProp"
 
@@ -55,7 +55,7 @@ class TestUniqueEntityIdUnit(unittest.TestCase):
             UniqueEntityId,
             "_UniqueEntityId__validate",
             autospec=True,
-            side_effect=UniqueEntityId._UniqueEntityId__validate,
+            side_effect=UniqueEntityId._UniqueEntityId__validate,  # pylint: disable=protected-access
         ) as mock_validate:
             with self.assertRaises(InvalidUuidException) as assert_error:
                 UniqueEntityId("fakeId")
@@ -67,7 +67,7 @@ class TestUniqueEntityIdUnit(unittest.TestCase):
             UniqueEntityId,
             "_UniqueEntityId__validate",
             autospec=True,
-            side_effect=UniqueEntityId._UniqueEntityId__validate,
+            side_effect=UniqueEntityId._UniqueEntityId__validate,  # pylint: disable=protected-access
         ) as mock_validate:
             value_object = UniqueEntityId("8e65b539-6bdb-42eb-b782-1470846e9cbf")
             mock_validate.assert_called_once()
@@ -77,19 +77,19 @@ class TestUniqueEntityIdUnit(unittest.TestCase):
         value_object = UniqueEntityId(uuid_value)
         self.assertEqual(value_object.id, str(uuid_value))
 
-    def test_generate_id_when_no_passed_id_in_constructor(self):
+    def test_generate_id_when_no_passed_id_in_constructor(self):  # pylint: disable=no-self-use
         with patch.object(
             UniqueEntityId,
             "_UniqueEntityId__validate",
             autospec=True,
-            side_effect=UniqueEntityId._UniqueEntityId__validate,
+            side_effect=UniqueEntityId._UniqueEntityId__validate,  # pylint: disable=protected-access
         ) as mock_validate:
             value_object = UniqueEntityId()
             uuid.UUID(value_object.id)
             mock_validate.assert_called_once()
 
     def test_if_is_immutable(self):
-        with self.assertRaises(FrozenInstanceError) as assert_error:
+        with self.assertRaises(FrozenInstanceError):
             value_object = UniqueEntityId()
             value_object.id = "8e65b539-6bdb-42eb-b782-1470846e9cbf"
 

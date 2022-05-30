@@ -4,11 +4,11 @@ import contextlib
 from dataclasses import dataclass
 from typing import Any, Dict, Generic, List, TypeVar
 
-from __seedwork.domain.exceptions import ValidationException
+from django.conf import settings
 from rest_framework.fields import BooleanField, CharField
 from rest_framework.serializers import Serializer
 
-from django.conf import settings
+from __seedwork.domain.exceptions import ValidationException
 
 if not settings.configured:
     settings.configure(USE_I18N=False)
@@ -60,7 +60,7 @@ class ValidatorFieldsInterface(ABC, Generic[PropsValidated]):
     validated_data: Any = None
 
     @abc.abstractmethod
-    def validate(self, data: Any) -> bool:
+    def validate(self, serializer: Any) -> bool:
         raise NotImplementedError()
 
 
@@ -69,12 +69,11 @@ class DRFValidator(ValidatorFieldsInterface[PropsValidated], ABC):
         if serializer.is_valid():
             self.validated_data = dict(serializer.validated_data)
             return True
-        else:
-            self.errors = {
-                field: [str(_error) for _error in _errors]
-                for field, _errors in serializer.errors.items()
-            }
-            return False
+        self.errors = {
+            field: [str(_error) for _error in _errors]
+            for field, _errors in serializer.errors.items()
+        }
+        return False
 
 
 class StrictCharField(CharField):
@@ -89,6 +88,7 @@ class StrictBooleanField(BooleanField):
         with contextlib.suppress(TypeError):
             if data is True or data is False:
                 return data
-            elif data is None and self.allow_null:
+            if data is None and self.allow_null:
                 return None
         self.fail("invalid", input=data)
+        return None

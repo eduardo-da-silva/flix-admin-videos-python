@@ -1,8 +1,9 @@
-import typing
-from __seedwork.domain.value_objects import UniqueEntityId
-from dataclasses import dataclass
-from typing import Optional, List
 import unittest
+import typing
+from typing import Optional, List
+from dataclasses import dataclass
+
+from __seedwork.domain.value_objects import UniqueEntityId
 from __seedwork.domain.entities import Entity
 from __seedwork.domain.exceptions import NotFoundException
 
@@ -14,7 +15,7 @@ from __seedwork.domain.repositories import (T, Filter, InMemoryRepository, InMem
 class TestRepositoryInterfaceUnit(unittest.TestCase):
     def test_throw_error_when_methods_not_implemented(self):
         with self.assertRaises(TypeError) as assert_error:
-            RepositoryInterface()
+            RepositoryInterface()   # pylint: disable=abstract-class-instantiated
         self.assertEqual(assert_error.exception.args[0],
                          "Can't instantiate abstract class RepositoryInterface with abstract methods " +
                          "delete, find_all, find_by_id, insert, update")
@@ -116,7 +117,7 @@ class TestInMemoryRepositoryUnit(unittest.TestCase):
 class TestSearchableRepositoryInterfaceUnit(unittest.TestCase):
     def test_throw_error_when_methods_not_implemented(self):
         with self.assertRaises(TypeError) as assert_error:
-            SearchableRepositoryInterface()
+            SearchableRepositoryInterface()  # pylint: disable=abstract-class-instantiated
         self.assertEqual(assert_error.exception.args[0],
                          "Can't instantiate abstract class SearchableRepositoryInterface with abstract methods " +
                          "delete, find_all, find_by_id, insert, search, update")
@@ -312,7 +313,7 @@ class StubInMemorySearchableRepository(InMemorySearchableRepository[StubEntity, 
     sortable_fields: List[str] = ['name']
 
     def _apply_filter(self, items: List[StubEntity], filter_param: str | None) -> List[StubEntity]:
-        if(filter_param):
+        if filter_param:
             filter_obj = filter(lambda item: filter_param.lower() in item.name.lower()
                                 or filter_param == str(item.price), items)
             return list(filter_obj)
@@ -328,7 +329,7 @@ class TestInMemorySearchableRepositoryUnit(unittest.TestCase):
 
     def test__apply_filter(self):
         items = [StubEntity(name='test', price=5)]
-        result = self.repo._apply_filter(items, None)
+        result = self.repo._apply_filter(items, None)  # pylint: disable=protected-access
         self.assertEqual(items, result)
 
         items = [
@@ -337,10 +338,10 @@ class TestInMemorySearchableRepositoryUnit(unittest.TestCase):
             StubEntity(name='fake', price=6),
         ]
 
-        result = self.repo._apply_filter(items, 'Test')
+        result = self.repo._apply_filter(items, 'Test')  # pylint: disable=protected-access
         self.assertEqual([items[0], items[1]], result)
 
-        result = self.repo._apply_filter(items, '5')
+        result = self.repo._apply_filter(items, '5')  # pylint: disable=protected-access
         self.assertEqual([items[0], items[1]], result)
 
     def test__apply_sort(self):
@@ -350,21 +351,21 @@ class TestInMemorySearchableRepositoryUnit(unittest.TestCase):
             StubEntity(name='c', price=2)
         ]
 
-        result = self.repo._apply_sort(items, 'price', 'asc')
+        result = self.repo._apply_sort(items, 'price', 'asc')  # pylint: disable=protected-access
         self.assertEqual(items, result)
 
-        result = self.repo._apply_sort(items, 'name', 'asc')
+        result = self.repo._apply_sort(items, 'name', 'asc')  # pylint: disable=protected-access
         self.assertEqual([items[1], items[0], items[2]], result)
 
-        result = self.repo._apply_sort(items, 'name', 'desc')
+        result = self.repo._apply_sort(items, 'name', 'desc')  # pylint: disable=protected-access
         self.assertEqual([items[2], items[0], items[1]], result)
 
         self.repo.sortable_fields.append('price')
 
-        result = self.repo._apply_sort(items, 'price', 'asc')
+        result = self.repo._apply_sort(items, 'price', 'asc')  # pylint: disable=protected-access
         self.assertEqual([items[1], items[0], items[2]], result)
 
-        result = self.repo._apply_sort(items, 'price', 'desc')
+        result = self.repo._apply_sort(items, 'price', 'desc')  # pylint: disable=protected-access
         self.assertEqual([items[2], items[0], items[1]], result)
 
     def test__apply_paginate(self):
@@ -376,16 +377,16 @@ class TestInMemorySearchableRepositoryUnit(unittest.TestCase):
             StubEntity(name='e', price=2)
         ]
 
-        result = self.repo._apply_paginate(items, 1, 2)
+        result = self.repo._apply_paginate(items, 1, 2)  # pylint: disable=protected-access
         self.assertEqual([items[0], items[1]], result)
 
-        result = self.repo._apply_paginate(items, 2, 2)
+        result = self.repo._apply_paginate(items, 2, 2)  # pylint: disable=protected-access
         self.assertEqual([items[2], items[3]], result)
 
-        result = self.repo._apply_paginate(items, 3, 2)
+        result = self.repo._apply_paginate(items, 3, 2)  # pylint: disable=protected-access
         self.assertEqual([items[4]], result)
 
-        result = self.repo._apply_paginate(items, 4, 2)
+        result = self.repo._apply_paginate(items, 4, 2)  # pylint: disable=protected-access
         self.assertEqual([], result)
 
     def test_search_when_params_is_empty(self):

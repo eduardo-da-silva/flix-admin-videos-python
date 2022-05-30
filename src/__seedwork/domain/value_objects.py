@@ -20,7 +20,7 @@ class ValueObject(ABC):
 
 @dataclass(frozen=True)
 class UniqueEntityId(ValueObject):
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))  # pylint: disable=invalid-name
 
     def __post_init__(self):
         id_value = str(self.id) if isinstance(self.id, uuid.UUID) else self.id

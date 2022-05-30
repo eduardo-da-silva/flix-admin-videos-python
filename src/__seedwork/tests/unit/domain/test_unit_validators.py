@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, PropertyMock, patch
+from rest_framework.serializers import Serializer
 
 from __seedwork.domain.validators import (
     DRFValidator,
@@ -7,7 +8,6 @@ from __seedwork.domain.validators import (
     ValidatorRules,
 )
 from __seedwork.domain.exceptions import ValidationException
-from rest_framework.serializers import Serializer
 
 
 class TestValidatorRulesUnit(unittest.TestCase):
@@ -27,8 +27,7 @@ class TestValidatorRulesUnit(unittest.TestCase):
         for i in invalid_data:
             msg = f'value: {i["value"]}, prop: {i["prop"]}'
             with self.assertRaises(ValidationException, msg=msg) as assert_error:
-                # pylint: disable=expression-not-assigned
-                ValidatorRules.values(i["value"], i["prop"]).required(),
+                ValidatorRules.values(i["value"], i["prop"]).required()
             self.assertEqual(
                 "The prop is required",
                 assert_error.exception.args[0],
@@ -57,8 +56,7 @@ class TestValidatorRulesUnit(unittest.TestCase):
         for i in invalid_data:
             msg = f'value: {i["value"]}, prop: {i["prop"]}'
             with self.assertRaises(ValidationException, msg=msg) as assert_error:
-                # pylint: disable=expression-not-assigned
-                ValidatorRules.values(i["value"], i["prop"]).string(),
+                ValidatorRules.values(i["value"], i["prop"]).string()
             self.assertEqual(
                 "The prop must be a string",
                 assert_error.exception.args[0],
@@ -84,7 +82,7 @@ class TestValidatorRulesUnit(unittest.TestCase):
         for i in invalid_data:
             msg = f'value: {i["value"]}, prop: {i["prop"]}'
             with self.assertRaises(ValidationException, msg=msg) as assert_error:
-                ValidatorRules.values(i["value"], i["prop"]).max_length(4),
+                ValidatorRules.values(i["value"], i["prop"]).max_length(4)
             self.assertEqual(
                 "The prop must be less than 4 characters",
                 assert_error.exception.args[0],
@@ -112,11 +110,10 @@ class TestValidatorRulesUnit(unittest.TestCase):
         for i in invalid_data:
             msg = f'value: {i["value"]}, prop: {i["prop"]}'
             with self.assertRaises(ValidationException, msg=msg) as assert_error:
-                # pylint: disable=expression-not-assigned
-                ValidatorRules.values(i["value"], i["prop"]).boolean(),
+                ValidatorRules.values(i["value"], i["prop"]).boolean()
             self.assertEqual(
                 "The prop must be a boolean",
-                assert_error.exception.args[0],
+                assert_error.exception.args[0]
             )
 
         valid_data = [
@@ -132,45 +129,44 @@ class TestValidatorRulesUnit(unittest.TestCase):
 
     def test_throw_a_validation_exception_when_combine_two_or_more_rules(self):
         with self.assertRaises(ValidationException) as assert_error:
-            ValidatorRules.values(None, "prop").required().string().max_length(5),
+            ValidatorRules.values(None, "prop").required().string().max_length(5)
         self.assertEqual(
             "The prop is required",
             assert_error.exception.args[0],
         )
 
         with self.assertRaises(ValidationException) as assert_error:
-            ValidatorRules.values(5, "prop").required().string().max_length(5),
+            ValidatorRules.values(5, "prop").required().string().max_length(5)
         self.assertEqual(
             "The prop must be a string",
             assert_error.exception.args[0],
         )
 
         with self.assertRaises(ValidationException) as assert_error:
-            ValidatorRules.values("t" * 5, "prop").required().string().max_length(4),
+            ValidatorRules.values("t" * 5, "prop").required().string().max_length(4)
         self.assertEqual(
             "The prop must be less than 4 characters",
             assert_error.exception.args[0],
         )
 
         with self.assertRaises(ValidationException) as assert_error:
-            ValidatorRules.values(5, "prop").required().boolean(),
+            ValidatorRules.values(5, "prop").required().boolean()
         self.assertEqual(
             "The prop must be a boolean",
             assert_error.exception.args[0],
         )
 
-    def test_valid_cases_or_combination_between_rules(self):
+    def test_valid_cases_or_combination_between_rules(self):  # pylint: disable=no-self-use
         ValidatorRules("test", "prop").required().string()
         ValidatorRules("t" * 5, "prop").required().string().max_length(5)
         ValidatorRules(True, "prop").required().boolean()
         ValidatorRules(False, "prop").required().boolean()
-        self.assertTrue(True)
 
 
 class TestValidatorFieldsInterfaceUnit(unittest.TestCase):
     def test_throw_error_when_validate_method_not_implemented(self):
         with self.assertRaises(TypeError) as assert_error:
-            ValidatorFieldsInterface()
+            ValidatorFieldsInterface()  # pylint: disable=abstract-class-instantiated
         self.assertEqual(
             assert_error.exception.args[0],
             "Can't instantiate abstract class ValidatorFieldsInterface with abstract method validate",

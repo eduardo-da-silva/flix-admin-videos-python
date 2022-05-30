@@ -1,13 +1,13 @@
 from typing import Dict
+from rest_framework import serializers
 from __seedwork.domain.validators import (
     DRFValidator,
     StrictBooleanField,
     StrictCharField,
 )
-from rest_framework import serializers
 
 
-class CategoryRules(serializers.Serializer):
+class CategoryRules(serializers.Serializer):  # pylint: disable=abstract-method
     name = StrictCharField(max_length=255)
     description = StrictCharField(required=False, allow_null=True, allow_blank=True)
     is_active = StrictBooleanField(required=False)
@@ -15,8 +15,8 @@ class CategoryRules(serializers.Serializer):
 
 
 class CategoryValidator(DRFValidator):
-    def validate(self, data: Dict) -> bool:
-        rules = CategoryRules(data=data if data is not None else {})
+    def validate(self, serializer: Dict) -> bool:
+        rules = CategoryRules(data=serializer if serializer is not None else {})
         return super().validate(rules)
 
 
