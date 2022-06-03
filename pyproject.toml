@@ -6,7 +6,10 @@ authors = [
     {name = "Eduardo da Silva", email = "eduardo.silva@gmail.com"},
 ]
 dependencies = [
+    "django>=4.0.4",
     "djangorestframework>=3.13.1",
+    "django-extensions>=3.1.5",
+    "dependency-injector>=4.39.1",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -23,8 +26,10 @@ dev = [
     "pytest-cov>=3.0.0",
 ]
 [tool.pdm.scripts]
+manage = "python ./src/django_app/manage.py"
 pep8 = "autopep8 --in-place --recursive ./src"
 pylint = "pylint ./src"
+runserver = "pdm run manage runserver 0.0.0.0:8000"
 test = "pytest --ignore __pypackages__"
 test_cov = "pdm run test --cov ./src --cov-fail-under 80"
 test_cov_html = "pdm run test_cov --cov-report html:./__coverage"
