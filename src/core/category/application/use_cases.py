@@ -99,7 +99,10 @@ class UpdateCategoryUseCase(UseCase):
         if input_param.is_active is False:
             entity.deactivate()
         self.category_repository.update(entity)
-        return CategoryOutputMapper.from_child(UpdateCategoryUseCase.Output).to_output(entity)
+        return self.__to_output(entity)
+
+    def __to_output(self, category: Category) -> 'Output':     # pylint: disable=no-self-use
+        return CategoryOutputMapper.from_child(UpdateCategoryUseCase.Output).to_output(category)
 
     @dataclass(slots=True, frozen=True)
     class Input:

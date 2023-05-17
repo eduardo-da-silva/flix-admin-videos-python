@@ -16,6 +16,9 @@ class RepositoryInterface(Generic[T], ABC):
     def insert(self, entity: T) -> None:
         raise NotImplementedError()
 
+    def bulk_insert(self, entities: List[T]) -> None:
+        raise NotImplementedError()
+
     @abstractmethod
     def find_by_id(self, entity_id: str | UniqueEntityId) -> T:
         raise NotImplementedError()
@@ -133,6 +136,9 @@ class InMemoryRepository(RepositoryInterface[T], ABC):
 
     def insert(self, entity: T) -> None:
         self.items.append(entity)
+
+    def bulk_insert(self, entities: List[T]) -> None:
+        self.items = entities + self.items
 
     def find_by_id(self, entity_id: str | UniqueEntityId) -> T:
         id_str = str(entity_id)

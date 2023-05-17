@@ -9,7 +9,7 @@ from core.category.domain.validators import CategoryValidatorFactory
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)
-class Category(Entity):
+class Category(Entity): 
     name: str
     description: Optional[str] = None
     is_active: Optional[bool] = True

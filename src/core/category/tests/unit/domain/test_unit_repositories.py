@@ -41,7 +41,7 @@ class TestInMemoryRepositoryUnit(unittest.TestCase):
         self.assertEqual(self.repo.items, [])
 
     def test_insert_item(self):
-        entity = StubEntity(name="teste", price=5)
+        entity = StubEntity(name="test", price=5)
         self.repo.insert(entity)
         self.assertEqual(self.repo.items[0], entity)
 

@@ -10,11 +10,15 @@ dependencies = [
     "djangorestframework>=3.13.1",
     "django-extensions>=3.1.5",
     "dependency-injector>=4.39.1",
+    "pytest-django>=4.5.2",
+    "pydantic>=1.10.7",
+    "dj-database-url>=2.0.0",
+    "mysqlclient>=2.1.1",
+    "python-dotenv>=1.0.0",
+    "colorama>=0.4.6",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
-[project.optional-dependencies]
-
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [

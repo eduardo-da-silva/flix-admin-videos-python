@@ -1,54 +1,62 @@
 {
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
+    "python.linting.pylintPath": "pylint",
+    "python.linting.pylintArgs": [
+        "--disable=C0111"
+    ],
     "python.autoComplete.extraPaths": [
         "${workspaceFolder}/__pypackages__/3.10/lib"
     ],
     "python.analysis.extraPaths": [
         "${workspaceFolder}/__pypackages__/3.10/lib"
     ],
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.indexing": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "django",
+            "includeAllSymbols": true,
+            "depth": 10
+        },
+        {
+            "name": "rest_framework",
+            "includeAllSymbols": true,
+            "depth": 10
+        },
+        {
+            "name": "core",
+            "includeAllSymbols": true,
+            "depth": 10
+        },
+    ],
+    "peacock.remoteColor": "#25415d",
     "python.testing.pytestArgs": [
         "src",
         "--ignore",
         "__pypackages__",
         "-s"
     ],
-    "python.formatting.provider": "autopep8",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.linting.pylintPath": "pylint",
-    // "python.linting.flake8Path": "$flake8",
-    // "python.linting.flake8Enabled": false,
-    "cSpell.words": [
-        "seedwork"
-    ],
     "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#65c89b",
-        "activityBar.activeBorder": "#945bc4",
-        "activityBar.background": "#65c89b",
-        "activityBar.foreground": "#15202b",
-        "activityBar.inactiveForeground": "#15202b99",
-        "activityBarBadge.background": "#945bc4",
+        "activityBar.activeBorder": "#441b30",
+        "activityBar.activeBackground": "#345a81",
+        "activityBar.background": "#345a81",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#441b30",
         "activityBarBadge.foreground": "#e7e7e7",
-        "sash.hoverBorder": "#65c89b",
-        "statusBar.background": "#42b883",
-        "statusBar.foreground": "#15202b",
-        "statusBarItem.hoverBackground": "#359268",
-        "statusBarItem.remoteBackground": "#42b883",
-        "statusBarItem.remoteForeground": "#15202b",
-        "titleBar.activeBackground": "#42b883",
-        "titleBar.activeForeground": "#15202b",
-        "titleBar.inactiveBackground": "#42b88399",
-        "titleBar.inactiveForeground": "#15202b99"
-    },
-    "peacock.remoteColor": "#42b883",
-    // "python.testing.unittestArgs": [
-    //     "-v",
-    //     "-s",
-    //     "./src",
-    //     "-p",
-    //     "test_*.py"
-    // ],
-    // "python.testing.pytestEnabled": false,
-    // "python.testing.unittestEnabled": true,
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#345a81",
+        "statusBar.background": "#25415d",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#345a81",
+        "statusBarItem.remoteBackground": "#25415d",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#25415d",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#25415d99",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    }
 }
